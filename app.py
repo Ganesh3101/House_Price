@@ -1,35 +1,28 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import joblib
 
-# Load model
-model = joblib.load("RandomForest_best_model.joblib")  # Replace with your best model file
+# Load your trained model (update filename if different)
+model = joblib.load("RandomForest_best_model.joblib")
 
-# Integer features (from your AmesHousing.csv)
+# Selected features
 features = [
-    'MS SubClass', 'Lot Area', 'Overall Qual', 'Overall Cond',
-    'Year Built', 'Year Remod/Add', '1st Flr SF', '2nd Flr SF',
-    'Low Qual Fin SF', 'Gr Liv Area', 'Full Bath', 'Half Bath',
-    'Bedroom AbvGr', 'Kitchen AbvGr', 'TotRms AbvGrd', 'Fireplaces',
-    'Wood Deck SF', 'Open Porch SF', 'Enclosed Porch', '3Ssn Porch',
-    'Screen Porch', 'Pool Area', 'Misc Val', 'Mo Sold', 'Yr Sold'
+    'Gr Liv Area', 'Full Bath', 'Bedroom AbvGr', 'TotRms AbvGrd', 'Year Built'
 ]
 
-# Streamlit app
+# Streamlit UI
 st.set_page_config(page_title="House Price Predictor", layout="centered")
-st.title("🏠 Ames House Price Prediction App")
-st.write("Enter the property details below to estimate the house sale price.")
+st.title("🏠 Ames House Price Prediction")
+st.write("Enter the house features to predict the sale price:")
 
-# Input form
+# Collect input values
 input_data = {}
 for feat in features:
-    input_data[feat] = st.number_input(f"{feat}", value=0)
+    default = 2000 if feat == 'Gr Liv Area' else 1 if 'Bath' in feat else 6 if feat == 'TotRms AbvGrd' else 2000
+    input_data[feat] = st.number_input(f"{feat}", value=default, step=1)
 
-# Predict button
+# Predict on button click
 if st.button("Predict Price"):
-    # Convert input to DataFrame
     input_df = pd.DataFrame([input_data])
     prediction = model.predict(input_df)[0]
-
-    st.success(f"🏡 Estimated House Price: **${int(prediction):,}**")
+    st.success(f"🏡 Predicted House Price: **${int(prediction):,}**")

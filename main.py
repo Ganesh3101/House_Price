@@ -13,30 +13,7 @@ df.dropna(inplace=True,axis=1)
 print(df.info())
 
 features = [
-    'Lot Area',
-    'Overall Qual',
-    'Overall Cond',
-    'Year Built',
-    'Year Remod/Add',
-    '1st Flr SF',
-    '2nd Flr SF',
-    'Low Qual Fin SF',
-    'Gr Liv Area',
-    'Full Bath',
-    'Half Bath',
-    'Bedroom AbvGr',
-    'Kitchen AbvGr',
-    'TotRms AbvGrd',
-    'Fireplaces',
-    'Wood Deck SF',
-    'Open Porch SF',
-    'Enclosed Porch',
-    '3Ssn Porch',
-    'Screen Porch',
-    'Pool Area',
-    'Misc Val',
-    'Mo Sold',
-    'Yr Sold'
+    'Gr Liv Area', 'Full Bath', 'Bedroom AbvGr', 'TotRms AbvGrd', 'Year Built'
 ]
 
 target = 'SalePrice'
